@@ -9,5 +9,5 @@ import com.google.gson.annotations.SerializedName
 data class CoinPriceInfoRawData (
     @SerializedName("RAW")
     @Expose
-    private val coinPriceInfoJsonObject: JsonObject? = null
+    val coinPriceInfoJsonObject: JsonObject? = null
 )
