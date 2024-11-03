@@ -8,18 +8,19 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.cryptohelper.databinding.ActivityMainBinding
+import com.example.cryptohelper.databinding.ActivityCoinPriceListBinding
+
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityCoinPriceListBinding
     private lateinit var viewModel: CoinViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityCoinPriceListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -28,9 +29,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
-        viewModel.loadData()
-        viewModel.priceList.observe(this, Observer {
-            Log.d("TEST_OF_LOADING_DATA", "Success in activity: $it")
+//        viewModel.priceList.observe(this, Observer {
+//            Log.d("TEST_OF_LOADING_DATA", "Success in activity: $it")
+//        })
+        viewModel.getDetailInfo("BTC").observe(this, Observer {
+            Log.d("TEST_OF_LOADING_DATA", "Success in activitylll: $it")
         })
     }
 }
