@@ -8,8 +8,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.cryptohelper.adapters.CoinInfoAdapter
 import com.example.cryptohelper.databinding.ActivityCoinPriceListBinding
-
+import com.example.cryptohelper.pojo.CoinPriceInfo
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,12 +29,18 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        val adapter = CoinInfoAdapter(this)
+        binding.rvCoinPriceList.adapter = adapter
+
+        adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
+            override fun onCoinClick(coinPriceInfo: CoinPriceInfo) {
+                Log.d("CLICK TEST", coinPriceInfo.fromSymbol)
+            }
+        }
+
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
-//        viewModel.priceList.observe(this, Observer {
-//            Log.d("TEST_OF_LOADING_DATA", "Success in activity: $it")
-//        })
-        viewModel.getDetailInfo("BTC").observe(this, Observer {
-            Log.d("TEST_OF_LOADING_DATA", "Success in activitylll: $it")
+        viewModel.priceList.observe(this, Observer {
+            adapter.coinInfoList = it
         })
     }
 }
