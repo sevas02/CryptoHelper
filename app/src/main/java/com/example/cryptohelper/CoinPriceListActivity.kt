@@ -1,19 +1,17 @@
 package com.example.cryptohelper
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.cryptohelper.adapters.CoinInfoAdapter
 import com.example.cryptohelper.databinding.ActivityCoinPriceListBinding
 import com.example.cryptohelper.pojo.CoinPriceInfo
 
 
-class MainActivity : AppCompatActivity() {
+class CoinPriceListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCoinPriceListBinding
     private lateinit var viewModel: CoinViewModel
@@ -34,13 +32,17 @@ class MainActivity : AppCompatActivity() {
 
         adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
             override fun onCoinClick(coinPriceInfo: CoinPriceInfo) {
-                Log.d("CLICK TEST", coinPriceInfo.fromSymbol)
+                val intent = CoinDetailActivity.newIntent(
+                    this@CoinPriceListActivity,
+                    coinPriceInfo.fromSymbol
+                )
+                startActivity(intent)
             }
         }
 
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
-        viewModel.priceList.observe(this, Observer {
+        viewModel.priceList.observe(this) {
             adapter.coinInfoList = it
-        })
+        }
     }
 }
