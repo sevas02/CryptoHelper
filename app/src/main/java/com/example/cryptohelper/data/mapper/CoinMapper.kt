@@ -49,10 +49,10 @@ object CoinMapper {
     fun mapDbModelToEntity(dbModel: CoinInfoDbModel) = CoinInfo(
         fromSymbol = dbModel.fromSymbol,
         toSymbol = dbModel.toSymbol,
-        price = dbModel.price,
+        price = priceFormatter(dbModel.price),
         lastUpdate = convertTimestampToTime(dbModel.lastUpdate),
-        highDay = dbModel.highDay,
-        lowDay = dbModel.lowDay,
+        highDay = priceFormatter(dbModel.highDay),
+        lowDay = priceFormatter(dbModel.lowDay),
         lastMarket = dbModel.lastMarket,
         imageUrl = dbModel.imageUrl
     )
@@ -64,5 +64,9 @@ object CoinMapper {
         val simpleDateFormat = SimpleDateFormat(pattern, Locale.getDefault())
         simpleDateFormat.timeZone = TimeZone.getDefault()
         return simpleDateFormat.format(date)
+    }
+
+    private fun priceFormatter(price: Double?): String {
+        return "%.3f".format(price)
     }
 }

@@ -37,23 +37,17 @@ class CoinDetailActivity : AppCompatActivity() {
         val fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL) ?: ""
 
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
-        viewModel.getDetailInfo(fromSymbol).observe(this) {
-            val textViewPrice = binding.tvPrice
-            val textViewMaxPrice = binding.tvMaxPrice
-            val textViewMinPrice = binding.tvMinPrice
-            val tvLastMarket = binding.tvLastMarket
-            val tvLastUpdate = binding.tvLastUpdate
-            val tvFromSymbol = binding.textViewFromCoin
-            val tvToSymbol = binding.textViewToCoin
-
-            textViewPrice.text = it.price.toString()
-            textViewMinPrice.text = it.lowDay
-            textViewMaxPrice.text = it.highDay
-            tvLastMarket.text = it.lastMarket
-            tvLastUpdate.text = it.lastUpdate
-            tvFromSymbol.text = it.fromSymbol
-            tvToSymbol.text = it.toSymbol
-            Picasso.get().load(it.imageUrl).into(binding.imageViewCoinDetail)
+        viewModel.getDetailInfo(fromSymbol).observe(this) { coinInfo ->
+            with(binding) {
+                tvPrice.text = coinInfo.price
+                tvMinPrice.text = coinInfo.lowDay
+                tvMaxPrice.text = coinInfo.highDay
+                tvLastMarket.text = coinInfo.lastMarket
+                tvLastUpdate.text = coinInfo.lastUpdate
+                textViewFromCoin.text = coinInfo.fromSymbol
+                textViewToCoin.text = coinInfo.toSymbol
+                Picasso.get().load(coinInfo.imageUrl).into(imageViewCoinDetail)
+            }
         }
 
     }

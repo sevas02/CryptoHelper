@@ -11,7 +11,7 @@ import com.example.cryptohelper.domain.CoinInfo
 import com.squareup.picasso.Picasso
 
 class CoinInfoAdapter(private val context: Context) :
-    RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
+    RecyclerView.Adapter<CoinInfoViewHolder>() {
 
     var coinInfoList: List<CoinInfo> = arrayListOf()
         @SuppressLint("NotifyDataSetChanged")
@@ -24,7 +24,7 @@ class CoinInfoAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: CoinInfoViewHolder, position: Int) {
         val coin = coinInfoList[position]
-        with(holder) {
+        with(holder.binding) {
             with(coin) {
                 val symbolsTemplate = context.resources.getString(R.string.symbols_template)
                 val lastUpdateTemplate = context.resources.getString(R.string.last_update_template)
@@ -34,7 +34,7 @@ class CoinInfoAdapter(private val context: Context) :
                 textViewLastUpdate.text =
                     String.format(lastUpdateTemplate, lastUpdate)
                 Picasso.get().load(imageUrl).into(imageViewCoinIcon)
-                itemView.setOnClickListener {
+                root.setOnClickListener {
                     onCoinClickListener?.onCoinClick(coin)
                 }
             }
@@ -47,19 +47,10 @@ class CoinInfoAdapter(private val context: Context) :
             parent,
             false
         )
-
         return CoinInfoViewHolder(binding)
     }
 
     override fun getItemCount() = coinInfoList.size
-
-    inner class CoinInfoViewHolder(binding: ItemCoinInfoBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val textViewSymbols = binding.textViewSymbols
-        val textViewPrice = binding.textViewPrice
-        val textViewLastUpdate = binding.textViewLastUpdate
-        val imageViewCoinIcon = binding.imageViewCoinIcon
-    }
 
     interface OnCoinClickListener {
         fun onCoinClick(coinPriceInfo: CoinInfo)
