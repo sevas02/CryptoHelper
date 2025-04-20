@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.cryptohelper"
-    compileSdk = 34
+    compileSdk = 35
 
     buildFeatures {
         viewBinding = true
@@ -15,10 +15,9 @@ android {
     defaultConfig {
         applicationId = "com.example.cryptohelper"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -45,10 +44,6 @@ dependencies {
     implementation(libs.roomCommon)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
-    implementation(libs.room.rxjava3)
-    implementation(libs.rxandroid)
-    implementation(libs.rxjava)
-    implementation(libs.adapterRxjava3)
     implementation(libs.gson)
     implementation(libs.retrofit)
     implementation(libs.viewModel)
