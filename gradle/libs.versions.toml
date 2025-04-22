@@ -19,6 +19,7 @@ liveData_version="2.8.7"
 lifecycle_version="2.8.7"
 reactiveStreams_version="2.8.7"
 picasso_version="2.8"
+workRuntimeKtx = "2.10.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +45,7 @@ liveDataCompiler = {group = "androidx.lifecycle", name = "lifecycle-compiler", v
 reactiveStreams = {group = "androidx.lifecycle", name = "lifecycle-reactivestreams-ktx", version.ref ="reactiveStreams_version"}
 
 picasso = {group = "com.squareup.picasso", name = "picasso", version.ref ="picasso_version"}
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workRuntimeKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
